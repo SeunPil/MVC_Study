@@ -1,11 +1,13 @@
 package com.spring.mvc.v2;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,10 +72,54 @@ public class BasicController {
     }
 
     @PostMapping("/basic/join3")
-    public String join(User user) {
+    public String join(User user, Model model) {
         System.out.println("아이디: " + user.getUserId());
         System.out.println("이름: " + user.getUserName());
         System.out.println("취미: " + user.getHobbies());
-        return "";
+
+        model.addAttribute("user", user);
+        return "request/result";
     }
+
+    // 화면쪽으로 서버의 데이터를 전달하는 법
+    @GetMapping("/model")
+    public String modelBasic(Model model, int age) {
+        //클라이언트 쪽으로 데이터를 greet라는 이름으로 메롱을 담아서 전달
+        model.addAttribute("greet","메롱");
+        model.addAttribute("myAge", age);
+
+        int birthYear = LocalDate.now().getYear() - age + 1;
+        model.addAttribute("birth", birthYear);
+        return "request/model_study";
+    }
+
+
+    // 퀴즈 메인 창 열기
+    // 로그인이 되면 jsp에 있는 response/quiz로 데이터가 날라간다.
+    //들어 갈 링크
+    @GetMapping("/res-quiz")
+    public String quizJoin() {
+    //form action링크 (데이터가 날라 갈 링크)
+        return "/request/res-quiz";
+    }
+
+
+    // 날라온 데이터를 받아주는 메서드
+    @PostMapping("/response/quiz")
+    // userPw, userId는 퀴즈 메인 창 로그인에서 날라온 데이터이다.
+    // res-quiz JSP 확인
+    public String quiz(String userId, String userPw, Model model) {
+        // 실패, 성공 화면에 실패한 계정을 출력하기 위한 값 userId를 account로 가져온다.
+        System.out.println("로그인 요청 들어옴!");
+
+        model.addAttribute("account", userId);
+        // 조건문
+        if (userId.equals("kim123") && userPw.equals("kkk1234")) {
+            return "request/success";
+        } else {
+            return "request/fail";
+        }
+    }
+
+
 }

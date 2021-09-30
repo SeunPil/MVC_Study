@@ -16,7 +16,7 @@ public class MvcApplication {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 
 		//경로 설정에 공통적인 경로 접두사
-		resolver.setPrefix("/WEB-INF/views");
+		resolver.setPrefix("/WEB-INF/views/");
 		//경로 마지막에 공통적으로 들어갈 접미사
 		resolver.setSuffix(".jsp");
 
