@@ -20,10 +20,13 @@ public class Score {
     //순차적 학번 부여 정적필드
     private static int seq;
 
-    public Score() {
-        this.stuNum = ++seq;
+    public void calctotal() {
         this.total = this.kor + this.eng + this.math;
         this.average = Math.round((this.total / 3.0) * 100) / 100.0;
+    }
+
+    public Score() {
+        this.stuNum = ++seq;
     }
 
     public Score(String name, int kor, int eng, int math) {
@@ -32,5 +35,6 @@ public class Score {
         this.kor = kor;
         this.eng = eng;
         this.math = math;
+        calctotal();
     }
 }

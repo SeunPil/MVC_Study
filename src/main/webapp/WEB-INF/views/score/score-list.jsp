@@ -1,73 +1,88 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <title>성적관리 프로그램</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성적관리 프로그램</title>
 
-    <style>
-        label {
-            display: block;
-        }
+<style>
+    label {
+        display: block;
+    }
+    .score-list > li {
+        margin-bottom: 10px;
+    }
+    .score-list > li:first-child {
+        font-size: 1.2em;
+        color: blue;
+        font-weight: 700;
+        border-bottom: 1px solid skyblue;
+    }
 
-        .score-list > li {
-            margin-bottom: 10px;
-        }
-        .score-list > li:first-child {
-            font-size: 1.2em;
-            color: blue;
-            font-weight: 700;
-            border-bottom: 1px solid skyblue;
-        }
-        
-    </style>
+    .del-btn {
+        width: 10px;
+        height: 10px;
+        background: red;
+        color: #fff;
+        border-radius: 5px;
+        margin-left: 5px;
+        text-decoration: none;
+        font-style: 0.7em;
+        padding: 4.5px;
+    }
+
+    .del-btn:hover {
+        background: orangered;
+    }
+</style>
 </head>
+<body>
+
+    <h1>시험 점수 등록</h1>
+    <form action="/score/register" method="POST">
+        <label>
+            # 이름: <input type="text" name="name">
+        </label>
+        <label>
+            # 국어: <input type="text" name="kor">
+        </label>
+        <label>
+            # 영어: <input type="text" name="eng">
+        </label>
+        <label>
+            # 수학: <input type="text" name="math">
+        </label>
+        <label>
+            <button type="submit">확인</button>
+            <button id="go-home" type="button">홈화면으로</button>
+        </label>
+    </form>
+
+    <hr>
+
+    <ul class="score-list">
+        <li>총 학생 수: ${scoreList.size()}명</li>
+
+        <c:forEach var="s" items="${scoreList}">
+            <li>
+                # 학번: ${s.stuNum}, 이름: <a href="/score/detail">${s.name}</a>, 국어: ${s.kor}점, 영어: ${s.eng}점, 수학: ${s.math}점, 총점: ${s.total}점, 평균: ${s.average}점
+                <!-- a태그는 무조건 getmapping 이다 -->
+                <!-- 주소 뒤에 변수를 넣으면 클라이언트에서 서버로 전달된다. -->
+                <a class="del-btn" href="/score/delete?stuNum=${s.stuNum}">삭제</a>
+            </li>
+        </c:forEach>
+    </ul>
 
 
-<h1>시험 점수 등록</h1>
-<form action="#" method="POST"></form>
-<label for="">
-    # 이름: <input type="text" name="name">
-</label>
-<label for="">
-    # 국어: <input type="text" name="kor">
-</label>
-<label for="">
-    # 영어: <input type="text" name="eng">
-</label>
-<label for="">
-    # 수학: <input type="text" name="mat">
-</label>
-<label for="">
-    <button type="submit">확인</button>
-    <button id="go-home" type="button">홈 화면으로</button>
-</label>
-</form>
-
-<hr>
-<ul class="score-list">
-    <li>총 학생 수: XXX명</li>
-    
-    <c:ForEach></c:ForEach>
-    <li>
-        # 학번: , 이름: , 국어: , 영어: , 수학: , 총점: , 평균:
-    </li>
-
-
-
-</ul>
-
-
-<script>
-    const home = document.getElementById('go-home');
-    home.addEventListener('click', e => {
-        location.href = '/'; // 링크이동가능
-    });
-</script>
-
+    <script>
+        const home = document.getElementById('go-home');
+        home.addEventListener('click', e => {
+            location.href = '/'; //링크이동기능
+        });
+    </script>
 
 </body>
-
 </html>
