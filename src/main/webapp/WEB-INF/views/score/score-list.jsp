@@ -58,7 +58,7 @@
         <label>
             <button type="submit">확인</button>
             <button id="go-home" type="button">홈화면으로</button>
-        </label>
+        </label>    
     </form>
 
     <hr>
@@ -68,7 +68,7 @@
 
         <c:forEach var="s" items="${scoreList}">
             <li>
-                # 학번: ${s.stuNum}, 이름: <a href="/score/detail">${s.name}</a>, 국어: ${s.kor}점, 영어: ${s.eng}점, 수학: ${s.math}점, 총점: ${s.total}점, 평균: ${s.average}점
+                # 학번: ${s.stuNum}, 이름: <a href="/score/detail?stuNum=${s.stuNum}">${s.name}</a>, 국어: ${s.kor}점, 영어: ${s.eng}점, 수학: ${s.math}점, 총점: ${s.total}점, 평균: ${s.average}점
                 <!-- a태그는 무조건 getmapping 이다 -->
                 <!-- 주소 뒤에 변수를 넣으면 클라이언트에서 서버로 전달된다. -->
                 <a class="del-btn" href="/score/delete?stuNum=${s.stuNum}">삭제</a>

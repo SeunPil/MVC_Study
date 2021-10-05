@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 @Setter @Getter
 @ToString
 public class Score {
@@ -20,13 +23,23 @@ public class Score {
     //순차적 학번 부여 정적필드
     private static int seq;
 
-    public void calctotal() {
-        this.total = this.kor + this.eng + this.math;
-        this.average = Math.round((this.total / 3.0) * 100) / 100.0;
-    }
-
     public Score() {
         this.stuNum = ++seq;
+    }
+
+    public Score(ResultSet rs) throws SQLException {
+        this.stuNum = rs.getInt("stu_num");
+        this.name = rs.getString("stu_name");
+        this.kor = rs.getInt("kor");
+        this.eng = rs.getInt("eng");
+        this.math = rs.getInt("math");
+        this.total = rs.getInt("total");
+        this.average = rs.getDouble("average");
+    }
+
+    public void calcTotal() {
+        this.total = this.kor + this.eng + this.math;
+        this.average = Math.round((this.total / 3.0) * 100) / 100.0;
     }
 
     public Score(String name, int kor, int eng, int math) {
@@ -35,6 +48,6 @@ public class Score {
         this.kor = kor;
         this.eng = eng;
         this.math = math;
-        calctotal();
+        calcTotal();
     }
 }
