@@ -12,6 +12,9 @@ import javax.sql.DataSource;
 @ComponentScan(basePackages = "com.spring.mvc")
 public class DataBaseConfig {
 
+    //MVC 기본 구조 패키지
+    // controller, domain, repository, service
+
     //DB연결정보, 커넥션 풀 설정
     @Bean
     public DataSource dataSource() {

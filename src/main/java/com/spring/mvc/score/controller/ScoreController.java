@@ -1,9 +1,9 @@
 package com.spring.mvc.score.controller;
 
 import com.spring.mvc.score.domain.Score;
+import com.spring.mvc.score.repository.ScoreMapper;
 import com.spring.mvc.score.repository.ScoreRepository;
 import com.spring.mvc.score.service.ScoreService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,19 +22,21 @@ public class ScoreController {
 
     private final ScoreRepository scoreRepository;
     private final ScoreService scoreService;
+    private final ScoreMapper scoreMapper;
 
     @Autowired
     public ScoreController(
             @Qualifier("jr") ScoreRepository scoreRepository
-            , ScoreService scoreService) {
+            , ScoreService scoreService, ScoreMapper scoreMapper) {
         this.scoreRepository = scoreRepository;
         this.scoreService = scoreService;
+        this.scoreMapper = scoreMapper;
     }
 
     //점수프로그램 화면요청
     @GetMapping("/score/list")
     public String scoreList(Model model) {
-        List<Score> scores = scoreRepository.findAll();
+        List<Score> scores = scoreMapper.findAll();
         model.addAttribute("scoreList", scores);
         return "score/score-list";
     }
@@ -52,7 +54,7 @@ public class ScoreController {
     @GetMapping("/score/delete")
     public String delete(int stuNum) {
         log.info("점수 삭제 요청! - ");
-        scoreRepository.remove(stuNum);
+        scoreMapper.remove(stuNum);
         return "redirect:/score/list";
     }
 
@@ -61,7 +63,7 @@ public class ScoreController {
     public String detail(@RequestParam("stuNum") int sn,
                          Model model) {
         log.info("/score/detail GET: " + sn);
-        Score score = scoreRepository.findOne(sn);
+        Score score = scoreMapper.findOne(sn);
         model.addAttribute("score", score);
         return "score/detail";
     }
