@@ -26,6 +26,6 @@ public interface BoardMapper {
 
     //5. 게시물 수정
     //게시물 수정을 위해 글 내용은 ~로 수정하고 제목은 ~을 수정하기 위해 Board를 전달받는다.
-    boolean modifyAritcle(Board board);
+    boolean modifyArticle(Board board);
 
 }
