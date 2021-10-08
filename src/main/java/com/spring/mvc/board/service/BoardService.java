@@ -4,6 +4,7 @@ import com.spring.mvc.board.domain.Board;
 import com.spring.mvc.board.repository.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,12 +20,32 @@ public class BoardService {
     public List<Board> getArticles() {
         List<Board> articles = boardMapper.getArticles();
 
+        //3분 이내 신규 글에 new마크 표시하기
+
+        //모든 글을 확인해 3분안에 작성된 글인지 확인하기
+        for (Board article : articles) {
+            //각 게시물들의 등록시간을 읽어오기(밀리초 getTime)
+            long regTime = article.getRegDate().getTime();
+
+            //현재시간 읽어오기(밀리초)
+            long now = System.currentTimeMillis();
+            // 3분 ( 60초 * 3분 * 1000ms
+            if (now - regTime < 60 * 3 * 1000 ) {
+                article.setNewFlag(true);
+            }
+
+        }
+
         return articles;
     }
 
-    //게시물 상세 가져오기
+    //게시글 상세조회
+    //자동 롤백
+    @Transactional
     public Board getContent(int boardNo) {
         Board content = boardMapper.getContent(boardNo);
+        //상세조회를 했을 때 조회수 Up
+        boardMapper.upViewCount(boardNo);
         return content;
     }
 
@@ -38,6 +59,12 @@ public class BoardService {
     public boolean remove(int boardNo) {
         return boardMapper.deleteArticle(boardNo);
     }
+
+    //게시물 수정
+    public boolean modify(Board board) {
+        return boardMapper.modifyArticle(board);
+    }
+
 
 
 

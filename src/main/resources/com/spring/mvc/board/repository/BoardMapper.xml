@@ -6,9 +6,9 @@
 <mapper namespace="com.spring.mvc.board.repository.BoardMapper">
 
     <resultMap id="boardMap" type="com.spring.mvc.board.domain.Board">
-        <result property="boardNo" column="board_no" />
-        <result property="viewCnt" column="view_cnt" />
-        <result property="regDate" column="reg_date" />
+        <result property="boardNo" column="board_no"/>
+        <result property="viewCnt" column="view_cnt"/>
+        <result property="regDate" column="reg_date"/>
     </resultMap>
 
     <select id="getArticles" resultMap="boardMap">
@@ -37,6 +37,13 @@
         UPDATE board SET
         title = #{title}, content = #{content}
         WHERE board_no = #{boardNo}
+    </update>
+
+<!--  조회수 상승 SQL  -->
+    <update id="upViewCount">
+        UPDATE board
+        SET view_cnt = view_cnt + 1
+        WHERE board_no = ${boardNo}
     </update>
 
 </mapper>

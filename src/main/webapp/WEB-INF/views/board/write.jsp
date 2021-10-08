@@ -18,43 +18,54 @@
 			align-items: center;
 			font-size: 1.5em;
 		}
+
 		.uploaded-list {
 			display: flex;
 		}
+
 		.uploaded-list a {
 			display: flex;
 			flex-direction: column;
 		}
+
 		.uploaded-list a img {
 			width: 100px;
 			height: 100px;
 			display: block;
 		}
+
 		.uploaded-list .thumbnail-box {
 			display: flex;
 		}
 	</style>
+	<!-- header css -->
+	<%@ include file="../include/static-head.jsp" %>
 
 </head>
 
 <body>
 
+	<%@ include file="../include/header.jsp" %>
+	<div class="wirte-container">
 	<h1>게시글 등록</h1>
 
 	<form action="/board/write" method="post">
-		<p>
+		<div class="input-box">
+			<p>
 
-			# 작성자: <input class="form-control" type="text" name="writer"><br>
-			# 제목: <input type="text" name="title"><br>
-			# 내용: <br>
-			<textarea rows="5" cols="30" name="content"></textarea>
-			<br>
-			
-		</p>
-        <button type="submit">등록</button>
+				# 작성자: <input class="form-control" type="text" name="writer"><br>
+				# 제목: <input type="text" class="form-control" name="title"><br>
+				# 내용: <br>
+				<textarea rows="5" cols="30" name="content"></textarea>
+				<br>
+
+			</p>
+			<button type="submit">등록</button>
+		</div>
 	</form>
-    
-	<a href="/board/list">글 목록보기</a>	
+
+	<a href="/board/list">글 목록보기</a>
+</div>
 
 </body>
 

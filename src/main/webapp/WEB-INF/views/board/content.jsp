@@ -16,22 +16,29 @@
             margin: 20px auto;
             padding: 20px 10px;
         }
+
         .attach-file-list a {
             display: flex;
             flex-direction: column;
         }
+
         .attach-file-list a img {
             width: 100px;
             height: 100px;
             display: block;
         }
+
         .attach-file-list .thumbnail-box {
             display: flex;
         }
     </style>
+    <!-- 파일 경로를 작성해 jsp를 끌어와 사용한다. -->
+    <%@ include file="../include/static-head.jsp" %>
 </head>
 
 <body>
+<!-- 파일 경로를 작성해 jsp를 끌어와 사용한다. -->
+    <%@ include file="../include/header.jsp" %>
 
     <div class="container">
         <div class="row">
@@ -48,7 +55,7 @@
 
                 <a href="/board/list">글 목록보기</a>&nbsp;
 
-                <a href="#">글 수정하기</a>
+                <a href="/board/modify?boardNo=${article.boardNo}">글 수정하기</a>
 
 
             </div>

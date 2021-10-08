@@ -37,12 +37,13 @@ public class BoardController {
 
     //게시글 상세 보기
     @GetMapping("/content")
-    public String Content(int boardNo, Model model) {
-        log.info("요청 발생 " + boardNo);
+    public String content(int boardNo, Model model) {
+        log.info("/board/content GET 요청! - 글번호: " + boardNo);
         Board content = boardService.getContent(boardNo);
-        model.addAttribute("content", content);
-        return "/board/content";
+        model.addAttribute("article", content);
+        return "board/content";
     }
+
     //게시글 작성 화면을 띄워주기
     @GetMapping("/write")
     public String Write(Board board) {
@@ -55,7 +56,7 @@ public class BoardController {
         log.info("/board/write POST 요청 !");
         //글 등록 실패 성공
         if(boardService.insert(board)) {
-            //리다이렉트시 데이터 제거
+            //리다이렉트시 입력했던 데이터는 제거
             ra.addFlashAttribute("msg","success");
         } else {
             ra.addFlashAttribute("msg","fail");
@@ -63,6 +64,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    //글 삭제 요청
     @GetMapping("/delete")
     public String delete(int boardNo) {
         log.info("삭제 요청 전달 받음! " + boardNo);
@@ -70,6 +72,26 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    // 글 수정 화면 요청 처리
+    @GetMapping("/modify")
+    public String modify(int boardNo, Model model) {
+        log.info("/board/modify GET! - " + boardNo);
+        // 글 상세정보 가져오기
+        Board content = boardService.getContent(boardNo);
+
+        // content(글 상세정보)를 article이라는 이름으로 전송
+        model.addAttribute("article", content);
+
+        return"/board/modify";
+    }
+
+    // 글 수정 완료 처리 요청
+    @PostMapping("modify")
+    public String modify(Board board) {
+        log.info("/board/modify POST! - " + board);
+        boardService.modify(board);
+        return "redirect:/board/content?boardNo=" +board.getBoardNo();
+    }
 
 
 }

@@ -17,6 +17,8 @@ public class Board {
     private int viewCnt; // 조회수
     private Date regDate; // 글 작성 시간
 
+    //is new로 생성이 된다.
+    private boolean newFlag; //신규 게시물 여부
 
 }
 

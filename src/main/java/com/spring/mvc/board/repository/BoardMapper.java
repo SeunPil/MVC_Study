@@ -28,4 +28,8 @@ public interface BoardMapper {
     //게시물 수정을 위해 글 내용은 ~로 수정하고 제목은 ~을 수정하기 위해 Board를 전달받는다.
     boolean modifyArticle(Board board);
 
+    //6. 조회수
+    //그 글의 조회수를 증가시키기 위해 글 번호를 받아준다.
+    void upViewCount(int boardNo);
+
 }
