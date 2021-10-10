@@ -33,6 +33,13 @@ public class BoardService {
             if (now - regTime < 60 * 3 * 1000 ) {
                 article.setNewFlag(true);
             }
+            //현재 조회수 가져오기
+            int viewCnt = article.getViewCnt();
+            System.out.println("viewCnt = " + viewCnt);
+            System.out.println("article.isBestFlag() = " + article.isBestFlag());
+            if ( viewCnt > 10 ) {
+                article.setBestFlag(true);
+            }
 
         }
 
@@ -46,6 +53,7 @@ public class BoardService {
         Board content = boardMapper.getContent(boardNo);
         //상세조회를 했을 때 조회수 Up
         boardMapper.upViewCount(boardNo);
+
         return content;
     }
 

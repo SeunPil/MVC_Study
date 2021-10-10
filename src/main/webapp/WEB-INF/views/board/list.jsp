@@ -90,9 +90,14 @@
                         <td>
                             <a href="/board/content?boardNo=${article.boardNo}">${article.title}</a>
                             <!-- JSP의 조건문 c:if 태그 test="조건문" -->
-                            <c:if test="${article.newFlag}">
+                            <c:choose>
+                            <c:when test="${article.newFlag}">
                                 <span class="badge rounded-pill bg-danger">New!</span>
-                            </c:if>
+                            </c:when>
+                            <c:when test="${article.bestFlag}">
+                                    <span class="badge rounded-pill bg-success">Best!</span>
+                            </c:when>
+                        </c:choose>
                         </td>
                         <td>
                             <!-- 날짜 표기 설정 -->

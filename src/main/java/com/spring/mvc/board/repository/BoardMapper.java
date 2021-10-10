@@ -32,4 +32,7 @@ public interface BoardMapper {
     //그 글의 조회수를 증가시키기 위해 글 번호를 받아준다.
     void upViewCount(int boardNo);
 
+    //6. 조회수 10 추가
+    boolean bestViewCount(int boardNo);
+
 }

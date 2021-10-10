@@ -19,6 +19,7 @@ public class Board {
 
     //is new로 생성이 된다.
     private boolean newFlag; //신규 게시물 여부
+    private boolean bestFlag; //게시글 10 이상시 베스트 여부
 
 }
 
