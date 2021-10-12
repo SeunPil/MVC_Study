@@ -36,6 +36,12 @@
       resultMap: 자바의 필드명과 테이블의 컬럼명이 다른 경우를
       대비하여 매칭하는 작업을 수행합니다.
       -->
+    <!--  총 게시물 수 조회  -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+    </select>
+
 
     <!--    id에는 맵의 이름을 지어주고 type엔 도메인 클래스의 풀 경로를 작성해준다.-->
     <resultMap id="scoreMap" type="com.spring.mvc.score.domain.Score">

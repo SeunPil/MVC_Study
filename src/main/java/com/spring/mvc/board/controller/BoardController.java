@@ -3,10 +3,12 @@ package com.spring.mvc.board.controller;
 import com.spring.mvc.board.domain.Board;
 import com.spring.mvc.board.repository.BoardMapper;
 import com.spring.mvc.board.service.BoardService;
+import com.spring.mvc.common.paging.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import com.spring.mvc.common.paging.PageMaker;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +29,12 @@ public class BoardController {
 
     //게시물 목록 요청
     @GetMapping("/list")
-    public String List(Model model) {
+    public String List(Page page, Model model) {
         log.info("/board/list GET 요청 발생! ");
-        List<Board> articles = boardService.getArticles();
+        List<Board> articles = boardService.getArticles(page);
         //요청을 /board/list에 담아 나가기 위해 Model 사용
         model.addAttribute("articles", articles);
+        model.addAttribute("maker", new PageMaker(page, boardService.getCount()));
         return "/board/list";
     }
 
