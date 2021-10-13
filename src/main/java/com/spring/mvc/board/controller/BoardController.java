@@ -9,10 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.spring.mvc.common.paging.PageMaker;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -34,16 +31,19 @@ public class BoardController {
         List<Board> articles = boardService.getArticles(page);
         //요청을 /board/list에 담아 나가기 위해 Model 사용
         model.addAttribute("articles", articles);
-        model.addAttribute("maker", new PageMaker(page, boardService.getCount()));
+        model.addAttribute("maker", new PageMaker(page, boardService.getCount(page)));
         return "/board/list";
     }
 
     //게시글 상세 보기
     @GetMapping("/content")
-    public String content(int boardNo, Model model) {
+    // @ModelAttribute는 요청 받자마자 Model에 담아준다. 이름은 page로 담아준다.
+    // 담을 이름을 변경하고 싶으면 ("이름")을 @앞에 붙혀준다. ex) @ModelAttribute("p") Page page
+    public String content(int boardNo, Model model, @ModelAttribute Page page) {
         log.info("/board/content GET 요청! - 글번호: " + boardNo);
         Board content = boardService.getContent(boardNo);
         model.addAttribute("article", content);
+//        model.addAttribute("page", page);
         return "board/content";
     }
 
