@@ -35,9 +35,9 @@
         <h2>게시글 목록</h2>
 
         <div class="amount">
-            <a href="/board/list?amount=10">10</a>
-            <a href="/board/list?amount=20">20</a>
-            <a href="/board/list?amount=30">30</a>
+            <a href="/board/list?amount=10&type=${maker.page.type}&keyword=${maker.page.keyword}">10</a>
+            <a href="/board/list?amount=20&type=${maker.page.type}&keyword=${maker.page.keyword}">20</a>
+            <a href="/board/list?amount=30&type=${maker.page.type}&keyword=${maker.page.keyword}">30</a>
 		</div>
 		<table class=" table table-hover">
                 <tr class="table-dark">
@@ -82,28 +82,30 @@
                 <!-- 페이지 영역 -->
                 <ul class="pagination">
                     <c:if test="${maker.prev}">
-                        <li class="page-item"><a class="page-link"
-                                href="/board/list?pageNum=${maker.beginPage - 1}">Prev</a></li>
+                        <li class="page-item">
+                            <li class="page-item"><a class="page-link" 
+                            href="/board/list?pageNum=${maker.beginPage - 1}&amount=${maker.page.amount}&type=${maker.page.type}&keyword=${maker.page.keyword}">Prev</a></li>
                     </c:if>
                     <c:forEach var="i" begin="${maker.beginPage}" end="${maker.endPage}" step="1">
-                        <li data-page="${i}" class="page-item"><a class="page-link" href="/board/list?pageNum=${i}&amount=${maker.page.amount}">${i}</a></li>
+                        <li data-page="${i}" class="page-item"><a class="page-link" href="/board/list?pageNum=${i}&amount=${maker.page.amount}&type=${maker.page.type}&keyword=${maker.page.keyword}">${i}</a></li>
                     </c:forEach>
                     <c:if test="${maker.next}">
                         <li class="page-item"><a class="page-link"
-                                href="/board/list?pageNum=${maker.endPage + 1}">Next</a></li>
+                                href="/board/list?pageNum=${maker.endPage + 1}&amount=${maker.page.amount}&type=${maker.page.type}&keyword=${maker.page.keyword}">Next</a></li>
                     </c:if>
                 </ul>
                 <!-- 검색창 영역 -->
                 <div class="search">
+                        <input type="hidden" name="amount" value="${maker.page.amount}">
                     <form action="/board/list" id="search-form">
                         <select name="type">
-                            <option value="title">제목</option>
-                            <option value="content">내용</option>
-                            <option value="writer">작성자</option>
-                            <option value="titleContent">제목+내용
+                            <option value="title" ${maker.page.type == 'title' ? 'selected' : ''}>제목</option>
+                            <option value="content" ${maker.page.type == 'content' ? 'selected' : ''}>내용</option>
+                            <option value="writer" ${maker.page.type == 'writer' ? 'selected' : ''}>작성자</option>
+                            <option value="titleContent" ${maker.page.type == 'titleContent' ? 'selected' : ''}>제목+내용
                             </option>
                         </select>
-                        <input type="text" name="keyword" placeholder="검색어를 입력!" value="">
+                        <input type="text" name="keyword" placeholder="검색어를 입력!" value="${maker.page.keyword}">
                         <button type="submit">검색</button>
                     </form>
                 </div>
