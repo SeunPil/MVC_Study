@@ -107,7 +107,7 @@ public class RootConfig {
 
 
 ## 크롬 확장 프로그램 설치
-- JSON Viewr ( Json으로 리턴 된 값을 편하게 보여주는 것  )
+- JSON Viewer ( Json으로 리턴 된 값을 편하게 보여주는 것  )
 - Boomerang - SOAP & REST Client
 
 ## HTTP Status
