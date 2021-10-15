@@ -99,3 +99,13 @@ public class RootConfig {
 </script>
 
 ```
+
+## 개인 노트 공간
+
+## 크롬 확장 프로그램 설치
+- JSON Viewr ( Json으로 리턴 된 값을 편하게 보여주는 것  )
+- Boomerang - SOAP & REST Client
+
+## HTTP Status
+[사이트 이동] (https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
+- 200번, 201번, 400번, 404번, 405번, 500번
