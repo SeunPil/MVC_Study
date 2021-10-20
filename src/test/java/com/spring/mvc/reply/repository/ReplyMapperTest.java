@@ -1,5 +1,6 @@
 package com.spring.mvc.reply.repository;
 
+import com.spring.mvc.common.paging.Page;
 import com.spring.mvc.reply.domain.Reply;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,9 +22,9 @@ class ReplyMapperTest {
     @Test
     @DisplayName("특정 글번호 게시글에 댓글 20개를 삽입해야 한다.")
     void insertTest(){
-        for (int i = 1; i < 20 ; i++) {
+        for (int i = 1; i < 200; i++) {
             Reply reply = new Reply();
-            reply.setBoardNo(15);  //내 게시글목록중 최신글에 넣어봤음
+            reply.setBoardNo(300);  //내 게시글목록중 최신글에 넣어봤음
             reply.setReplyText("테스트 댓글 " + i);
             reply.setReplyWriter("짹짹이" + i);
 
@@ -35,9 +36,12 @@ class ReplyMapperTest {
     @Test
     @DisplayName("특정 게시물의 댓글 목록을 조회할 수 있어야 한다.")
     void getListTest() {
-        List<Reply> list = replyMapper.getList(200);
-
-        assertTrue(list.size() == 20);
+        List<Reply> list = replyMapper.getList(10, new Page(1, 10));
+        System.out.println("=============================");
+        for (Reply reply : list) {
+            System.out.println(reply);
+        }
+        assertEquals(10, list.size());
     }
 
     @Test
@@ -62,7 +66,7 @@ class ReplyMapperTest {
             replyMapper.delete(200);
         }
 
-        assertTrue(replyMapper.getList(15).size() == 18);
+        assertTrue(replyMapper.getList(15, new Page(1, 10)).size() == 18);
     }
 
 
